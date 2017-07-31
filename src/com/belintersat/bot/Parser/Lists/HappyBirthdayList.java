@@ -28,7 +28,7 @@ public class HappyBirthdayList {
             String str = data.substring(0, 6);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.");
             if(dateFormat.format(new Date()).equals(str)){
-                result.add(data.substring(11, data.length() - 1));
+                result.add(data.substring(11, data.length()));
             }
         }
         return result;

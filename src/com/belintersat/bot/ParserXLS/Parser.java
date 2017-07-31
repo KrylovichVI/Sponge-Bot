@@ -6,6 +6,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -65,6 +66,8 @@ public class Parser {
         return list;
     }
 
+
+
     public static HappyBirthdayList parserBirthday(String name){
         InputStream in;
         HSSFWorkbook wb = null;
@@ -85,6 +88,45 @@ public class Parser {
                 Cell cell = cells.next();
                 list.addUser(cell.getStringCellValue());
             }
+        }
+        return list;
+    }
+
+    public static BelintersatList parseSipAbonents(String name){
+        InputStream in;
+        HSSFWorkbook wb = null;
+        BelintersatList list = new BelintersatList();
+        String keyResult = "";
+        String result = "";
+
+        try {
+            in = new FileInputStream(name);
+            wb = new HSSFWorkbook(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HSSFSheet sheet = wb.getSheetAt(0);
+        Iterator<Row> it = sheet.iterator();
+        while(it.hasNext()){
+            Row row = it.next();
+            Iterator<Cell> cells = row.iterator();
+            while(cells.hasNext()){
+                Cell cell = cells.next();
+                if(cell.getColumnIndex() == 0){
+                    keyResult = cell.getStringCellValue();
+                    continue;
+                }
+                int cellType = cell.getCellType();
+                switch (cellType){
+                    case Cell.CELL_TYPE_NUMERIC :
+                        result = "[" + (int)cell.getNumericCellValue() + "]";
+                        break;
+                    case Cell.CELL_TYPE_STRING :
+                        result = "[" + cell.getStringCellValue() + "]";
+                        break;
+                }
+            }
+            list.addMap(keyResult, result);
         }
         return list;
     }

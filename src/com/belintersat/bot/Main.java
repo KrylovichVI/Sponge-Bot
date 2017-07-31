@@ -18,7 +18,6 @@ public class Main {
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
-
         timerBirthday(bot);
 
     }

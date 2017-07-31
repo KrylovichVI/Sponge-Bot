@@ -7,8 +7,7 @@ import java.util.TimerTask;
 
 public class TimerTaskBot extends TimerTask {
     private Bot bot;
-    //private String TIME_EQUALS  = "08:30";
-    private String TIME_EQUALS  = "16:32";
+    private String TIME_EQUALS  = "08:30";
 
     public TimerTaskBot(Bot bot) {
         this.bot = bot;
@@ -20,8 +19,7 @@ public class TimerTaskBot extends TimerTask {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         System.out.println(dateFormat.format(nowTime));
         if(dateFormat.format(nowTime).equals(TIME_EQUALS)) {
-            bot.sendMsgBirthday();
+            bot.sendMsgBirthday(nowTime);
         }
-
     }
 }
