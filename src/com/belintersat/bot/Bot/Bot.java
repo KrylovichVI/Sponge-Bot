@@ -1,11 +1,11 @@
 package com.belintersat.bot.Bot;
 import com.belintersat.bot.Parser.Lists.HappyBirthdayList;
 import com.belintersat.bot.ParserXLS.Parser;
+import com.belintersat.bot.Weather.Weather;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.methods.send.SendSticker;
 import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.api.objects.Sticker;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -15,6 +15,7 @@ import java.util.*;
 public class Bot extends TelegramLongPollingBot{
     private long CHAT_TEST_ID = -1001135491699L;
     private long CHAT_NKU_ID = -120277389L;
+    private String STICKER = "BQADAgADowADEag0BQs_xQSkcIFKAg";
     private String[] url = {"http://belintersat.by/images/Telegrambot/happy_summer.jpg",
             "http://belintersat.by/images/Telegrambot/happy_autumn.jpg",
             "http://belintersat.by/images/Telegrambot/happy_spring.jpg",
@@ -50,7 +51,7 @@ public class Bot extends TelegramLongPollingBot{
         if ((message.getText().equalsIgnoreCase("что со спутником")) || (message.getText().equalsIgnoreCase("что со спутником?")) ||
           (message.getText().equalsIgnoreCase("что со спутником ?")))
             sendMsgSatellite(message);
-        if (message.getText().contains("#") && !message.getText().contains("#list"))
+        if (message.getText().contains("#") && !message.getText().contains("#list") && !message.getText().contains("#погода"))
             sendMsgBelintersatList(message);
         if(message.getText().equalsIgnoreCase("Кто проживает на дне океана?") || message.getText().equalsIgnoreCase("Кто проживает на дне океана") ||
                 message.getText().equalsIgnoreCase("Кто проживает на дне океана ?"))
@@ -63,6 +64,9 @@ public class Bot extends TelegramLongPollingBot{
         }
         if(message.getText().contains("совещание в") || message.getText().contains("Совещание в")){
             sendMsgMeeting(message);
+        }
+        if(message.getText().equalsIgnoreCase("#погода")){
+            sendMsgWeather(message);
         }
 
 
@@ -154,8 +158,12 @@ public class Bot extends TelegramLongPollingBot{
         private void sendMsgSatellite(Message message){
             SendMessage sendMessage = new SendMessage().setChatId(message.getChatId());
             sendMessage.setText("Сегодня все ок, " + getTimes() + " сутки полета!");
+            //SendSticker sendSticker = new SendSticker().setChatId(message.getChatId());
+            //sendSticker.setSticker(STICKER);
+
             try{
                 sendMessage(sendMessage);
+                //sendSticker(sendSticker);
             }catch(TelegramApiException e){
                 e.printStackTrace();
             }
@@ -206,6 +214,24 @@ public class Bot extends TelegramLongPollingBot{
             }
         }
 
+        private void sendMsgWeather(Message message) {
+            SendMessage sendMessage = new SendMessage().setChatId(message.getChatId());
+            sendMessage.setText(Weather.showWeather());
+            try {
+                sendMessage(sendMessage);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+        public void sendMsgWeather() {
+            SendMessage sendMessage = new SendMessage().setChatId(getCHAT_NKU_ID());
+            sendMessage.setText(Weather.showWeather());
+            try {
+                sendMessage(sendMessage);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
         private long getTimes() {
             GregorianCalendar calendar = new GregorianCalendar(2016, Calendar.JANUARY, 15);
             GregorianCalendar calendar1 = new GregorianCalendar();

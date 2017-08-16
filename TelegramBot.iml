@@ -12,5 +12,6 @@
     <orderEntry type="library" name="telegrambots-3.0.1-jar-with-dependencies" level="project" />
     <orderEntry type="library" name="telegrambots-3.1.1-jar-with-dependencies" level="project" />
     <orderEntry type="library" name="telegrambots-3.1.2-jar-with-dependencies" level="project" />
+    <orderEntry type="library" name="owm-japis-2.5.0.3" level="project" />
   </component>
 </module>
