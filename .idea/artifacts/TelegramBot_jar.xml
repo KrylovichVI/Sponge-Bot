@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TelegramBot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TelegramBot_jar</output-path>
+    <root id="archive" name="TelegramBot.jar">
+      <element id="module-output" name="TelegramBot" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/owm-japis-2.5.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/telegrambots-3.0.1-jar-with-dependencies.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/telegrambots-3.1.1-jar-with-dependencies.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/telegrambots-3.1.2-jar-with-dependencies.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/poi-3.16.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
